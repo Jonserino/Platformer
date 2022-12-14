@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 export(int) var JUMP_FORCE = -130
 export(int) var JUMP_RELEASE_FORCE = -65
@@ -24,17 +25,12 @@ func _physics_process(delta):
 	if input.x == 0:
 		apply_friction()
 		animatedSprite.animation = "Idle"
-		
+	
 	else:
 		apply_acceleration(input.x)
 		animatedSprite.animation = "Run"
 		
-		if input.x > 0:
-			animatedSprite.flip_h = true
-		elif input.x < 0:
-			animatedSprite.flip_h = false
-
-	
+		animatedSprite.flip_h = input.x > 0
 	
 	if is_on_floor():
 		if Input.is_action_pressed("ui_up"):
